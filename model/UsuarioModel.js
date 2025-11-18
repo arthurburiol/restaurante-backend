@@ -1,37 +1,45 @@
 import { DataTypes } from "sequelize";
 import banco from "../banco.js";
 
-const Usuario = banco.define(
-  "usuarios",
+export default banco.define(
+  'usuarios',  // Corrija o nome da tabela para 'usuarios'
   {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
     },
+
+    usuario: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true // Garantir que o campo 'usuario' seja único
+    },
+
+    senha: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+
     cpf: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      unique: true
+      type: DataTypes.STRING(11), // Supondo que seja um CPF
+      allowNull: true
     },
+
     nome: {
-      type: DataTypes.STRING(100),
-      allowNull: false
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
+
     telefone: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      unique: true
+      type: DataTypes.STRING(15), // Supondo que seja um telefone com DDD
+      allowNull: true
     },
+
     tipo: {
-      type: DataTypes.STRING(20),
-      allowNull: false
+      type: DataTypes.STRING(50),
+      allowNull: true
     }
-  },
-  {
-    timestamps: false, // teu banco não usa createdAt/updatedAt
-    tableName: "usuarios"
   }
 );
-
-export default Usuario;

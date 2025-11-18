@@ -18,10 +18,10 @@ async function inserir(req, res) {
 
 async function alterar(req, res) {
   const id = req.params.id;
-  const { cpf, nome, telefone, tipo } = req.body;
+  const { cpf, nome, telefone, tipo, usuario, senha } = req.body;
 
   const resposta = await Usuario.update(
-    { cpf, nome, telefone, tipo },
+    { cpf, nome, telefone, tipo, usuario, senha },
     { where: { id } }
   );
 

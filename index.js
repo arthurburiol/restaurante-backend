@@ -1,12 +1,16 @@
 import cors from "cors";
 import express from "express";
 import banco from "./banco.js";
+
 import Usuario from "../Back-end/controller/UsuarioController.js"
 import Produto from "../Back-end/controller/ProdutoController.js"
 import Pagamento from "./controller/PagamentoController.js";
 import Comanda from "./controller/ComandaController.js";
 import ComandaItens from "./controller/ComandaItensController.js";
+import loginRoute from "./routes/login.js";
+import Relatorio from "./controller/RelatorioController.js";
 
+// Teste de conexão com o banco
 try {
     await banco.authenticate();
     console.log('Conexão com o banco de dados realizada com sucesso.');
@@ -22,6 +26,13 @@ app.use(cors());
 app.get('/teste', (req, res) => {
     res.send('Teste ok.');
 });
+
+//Login
+app.use("/login", loginRoute);
+
+// Rotas para relatórios
+app.get('/relatorio/itens', Relatorio.vendasPorItens);
+app.get('/relatorio/total', Relatorio.valorTotalDoDia);
 
 // Rotas para usuarios 
 app.get('/usuario', Usuario.listar);
